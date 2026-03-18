@@ -2,6 +2,7 @@
 title: 'Multi-agent novel production system — AI agents autonomously write, audit, and revise novels with human review gates'
 description: 'Discover how to transition from writing prompts to managing a multi-agent novel system with Mneme, where specialized AI roles handle outlining, world-building, and editing while you act as the product manager. This post explores the architecture, memory management, and human-in-the-loop strategies needed to overcome continuity issues and generate high-quality long-form fiction.'
 pubDate: '2026-03-18T00:42:07.390775'
+heroImage: '/api/assistant/post-writer/image-projects/69ba0aa54b8c9d0faea0c4ee/images/img_1773825366620'
 ---
 
 # From Writer to Product Manager: Building a Multi-Agent Novel System with Mneme
