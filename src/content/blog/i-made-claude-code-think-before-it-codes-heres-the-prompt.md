@@ -2,6 +2,7 @@
 title: 'I Made Claude Code Think Before It Codes. Here''s the Prompt.'
 description: 'Stop treating AI as a junior developer and start using the `/wizard` methodology to force a structured, eight-phase workflow that transforms it into a senior architect. This approach replaces risky "generate-then-fix" loops with rigorous planning, TDD, and adversarial review to eliminate hallucinations and ensure production-ready code.'
 pubDate: '2026-03-16T14:02:30.343737'
+heroImage: '/api/assistant/post-writer/image-projects/69ba0aa54b8c9d0faea0c4ee/images/img_1773825421351'
 ---
 
 # Stop Asking AI to Code. Start Asking It to Architect.
