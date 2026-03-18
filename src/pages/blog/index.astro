@@ -4,140 +4,37 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import { Image } from 'astro:assets';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-import { CATEGORIES, getCategoryLabel, getCategorySubtitle } from '../../categories';
 
-const allPosts = (await getCollection('blog')).sort(
+const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-// Discover categories from posts, ordered by CATEGORIES config
-const usedSlugs = [...new Set(allPosts.map(p => p.data.category).filter(Boolean))];
-const orderedCategories = CATEGORIES.length > 0
-	? CATEGORIES.filter(c => usedSlugs.includes(c.slug))
-	: usedSlugs.map(slug => ({ slug, label: slug, subtitle: '' }));
-
-const postsByCategory = Object.fromEntries(
-	orderedCategories.map(c => [c.slug, allPosts.filter(p => p.data.category === c.slug)])
 );
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Essays — ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-		<style>
-			.page-header {
-				margin-bottom: 2.5rem;
-			}
-			.page-header h1 {
-				font-family: var(--font-display);
-				font-size: 2.2rem;
-				font-weight: 700;
-				margin-bottom: 0.3rem;
-			}
-			.category-section {
-				margin-bottom: 3rem;
-			}
-			.category-section h2 {
-				font-family: var(--font-display);
-				font-size: 1.4rem;
-				font-weight: 700;
-				color: var(--color-text);
-				margin-bottom: 0.2rem;
-			}
-			.category-section .subtitle {
-				font-family: var(--font-serif);
-				font-style: italic;
-				font-size: 0.9rem;
-				color: var(--color-text-light);
-				margin-bottom: 1.2rem;
-			}
-			.essay-list {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-			.essay-item {
-				border-bottom: 1px solid var(--color-border-light);
-				padding: 1rem 0;
-			}
-			.essay-item:last-child {
-				border-bottom: none;
-			}
-			.essay-item a {
-				text-decoration: none;
-				color: inherit;
-				display: block;
-			}
-			.essay-item a:hover h3 {
-				color: var(--color-accent-dark);
-			}
-			.essay-item .date {
-				font-family: var(--font-sans);
-				font-size: 0.72rem;
-				color: var(--color-text-light);
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				display: block;
-				margin-bottom: 0.3rem;
-			}
-			.essay-item h3 {
-				font-family: var(--font-display);
-				font-size: 1.15rem;
-				font-weight: 700;
-				margin-bottom: 0.3rem;
-				transition: color 0.2s;
-			}
-			.essay-item .description {
-				font-size: 0.9rem;
-				color: var(--color-text-light);
-				line-height: 1.7;
-				margin: 0;
-			}
-			.empty {
-				color: var(--color-text-light);
-				font-style: italic;
-				font-size: 0.9rem;
-				padding: 1rem 0;
-			}
-			@media (max-width: 600px) {
-				.page-header h1 {
-					font-size: 1.8rem;
-				}
-			}
-		</style>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="page-header">
-				<h1>Essays</h1>
-			</div>
-			{orderedCategories.map((cat, i) => (
-				<>
-					<div class="divider"></div>
-					<section class="category-section">
-						<h2>{cat.label}</h2>
-						{cat.subtitle && <p class="subtitle">{cat.subtitle}</p>}
-						{(postsByCategory[cat.slug] || []).length > 0 ? (
-							<ul class="essay-list">
-								{(postsByCategory[cat.slug] || []).map(post => (
-									<li class="essay-item">
-										<a href={`/blog/${post.id}/`}>
-											<span class="date"><FormattedDate date={post.data.pubDate} /></span>
-											<h3>{post.data.title}</h3>
-											<p class="description">{post.data.description}</p>
-										</a>
-									</li>
-								))}
-							</ul>
-						) : (
-							<p class="empty">Essays coming soon.</p>
-						)}
-					</section>
-				</>
-			))}
+			<h2>Posts</h2>
+			<ul class="post-list">
+				{posts.map((post) => (
+					<li>
+						<a href={`/blog/${post.id}/`}>
+							{post.data.heroImage && <Image src={post.data.heroImage} alt={post.data.title} />}
+							<div>
+								<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+								<h3>{post.data.title}</h3>
+								<p class="desc">{post.data.description}</p>
+							</div>
+						</a>
+					</li>
+				))}
+			</ul>
 		</main>
 		<Footer />
 	</body>
