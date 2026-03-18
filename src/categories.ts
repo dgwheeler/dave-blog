@@ -6,12 +6,14 @@ export interface Category {
   subtitle: string;
 }
 
-export const CATEGORIES: Category[] = [];
+export const CATEGORIES: Category[] = [
+  { slug: 'main', label: 'Posts from experience', subtitle: 'Experience the posts' },
+];
 
 export function getCategoryLabel(slug: string): string {
-  return slug;
+  return CATEGORIES.find(c => c.slug === slug)?.label || slug;
 }
 
 export function getCategorySubtitle(slug: string): string {
-  return '';
+  return CATEGORIES.find(c => c.slug === slug)?.subtitle || '';
 }
