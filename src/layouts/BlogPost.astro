@@ -5,9 +5,11 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { Image } from 'astro:assets';
+import Comments from '../components/Comments.astro';
+import { COMMENTS_ENABLED } from '../consts';
 
-type Props = CollectionEntry<'blog'>['data'];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+type Props = CollectionEntry<'blog'>['data'] & { slug: string };
+const { title, description, pubDate, updatedDate, heroImage, slug } = Astro.props;
 ---
 
 <html lang="en">
@@ -23,6 +25,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<p class="date"><FormattedDate date={pubDate} />{updatedDate && <span> · Updated <FormattedDate date={updatedDate} /></span>}</p>
 				<hr />
 				<slot />
+				{COMMENTS_ENABLED && <Comments slug={slug} />}
 			</article>
 		</main>
 		<Footer />
