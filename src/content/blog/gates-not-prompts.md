@@ -1,7 +1,7 @@
 ---
 title: 'Gates, Not Prompts'
 description: 'I came into this convinced that AI doom coverage was mostly vague, and that every destructive path began with a human prompt. What broke that for me was the four-families breakdown, then the o1 oversi'
-pubDate: '2026-09-17T01:58:49.180576'
+pubDate: '2026-09-17T01:59:02.041007'
 order: 1
 ---
 
